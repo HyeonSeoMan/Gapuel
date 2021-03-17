@@ -1,80 +1,43 @@
 import React from 'react';
+import {createStore} from 'redux';
+import reducers from './src/store/reducers';
+import {Provider} from 'react-redux';
 import {createAppContainer} from 'react-navigation';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import TutorialScreen from './screens/TutorialScreen';
-import HomeScreen from './screens/HomeScreen';
-import ChatScreen from './screens/ChatScreen';
-import SettingsScreen from './screens/SettingsScreen';
-import IconWithBadge from './IconWithBadge';
+import Home from './src/screens/Home';
+import Detail from './src/screens/Detail';
+import ModalScreen from './src/screens/ModalScreen';
 
-const HomeIconWithBadge = (props) => {
-  return <IconWithBadge {...props} badgeCount={3} />;
-};
-
-const TabNavigator = createBottomTabNavigator(
+const MainStack = createStackNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-    },
-    Chat: {
-      screen: ChatScreen,
-    },
-    Settings: {
-      screen: SettingsScreen,
-      navigationOptions: {
-        header: null,
-      },
-    },
+    Home: {screen: Home},
+    Detail: {screen: Detail},
+  },
+  {},
+);
+const RootStack = createStackNavigator(
+  {
+    Main: {screen: MainStack},
+    MyModal: {screen: ModalScreen},
   },
   {
-    defaultNavigationOptions: ({navigation}) => ({
-      swipeEnabled: true,
-      adaptive: true,
-      tabBarIcon: ({horizontal, tintColor}) => {
-        const {routeName} = navigation.state;
-        let IconComponent = Ionicons;
-        let iconName;
-        if (routeName === 'Home') {
-          iconName = 'ios-home';
-        } else if (routeName === 'Chat') {
-          iconName = 'ios-chatboxes';
-          IconComponent = HomeIconWithBadge;
-        } else if (routeName === 'Settings') {
-          iconName = 'ios-settings';
-        }
-
-        return (
-          <IconComponent
-            name={iconName}
-            size={horizontal ? 20 : 25}
-            color={tintColor}
-          />
-        );
-      },
-    }),
-    tabBarOptions: {
-      activeTintColor: 'white',
-      inactiveTintColor: 'gray',
-      style: {
-        backgroundColor: 'black',
-      },
-    },
+    mode: 'modal',
+    headerMode: 'none',
   },
 );
+const AppContainer = createAppContainer(RootStack);
+const store = createStore(reducers);
 
-const App = createStackNavigator({
-  screen: TutorialScreen,
-  TabNavigator: {
-    screen: TabNavigator,
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: '#633689',
-      },
-      headerTintColor: '#FFFFFF',
-      title: 'React Native Tutorial',
-    },
-  },
-});
-export default createAppContainer(App);
+const App = () => {
+  return (
+    <Provider store={store}>
+      <AppContainer
+        ref={(nav) => {
+          this.navigator = nav;
+        }}
+      />
+    </Provider>
+  );
+};
+
+export default App;
