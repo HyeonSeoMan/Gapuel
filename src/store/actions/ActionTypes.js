@@ -1,4 +1,6 @@
-export const ADD = 'ADD';
-export const REMOVE = 'REMOVE';
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
+export const SendAdd = 'SendAdd';
+export const SendRemove = 'SendRemove';
+export const ReceiveAdd = 'ReceiveAdd';
+export const ReceiveRemove = 'ReceiveRemove';
+// export const INCREMENT = 'INCREMENT';
+// export const DECREMENT = 'DECREMENT';

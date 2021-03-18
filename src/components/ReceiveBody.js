@@ -8,46 +8,44 @@ import {
   ScrollView,
 } from 'react-native';
 
-const App = ({
-  debt,
-  handleAddCounter,
-  handleRemoveCounter,
-  handleIncrement,
-  handleDecrement,
+const ReceiveBody = ({
+  ReceiveDebt,
+  ReceiveAdd,
+  ReceiveRemove,
 }) => {
-  const [from, setFrom] = useState('');
-  const [to, setTo] = useState('');
-  const [date, setDate] = useState('');
-  const [amount, setAmount] = useState('');
-  const addDebt = () => {
-    const payload = {
-      id: debt.length,
-      from: from,
-      to: to,
-      amount: amount,
-      date: date,
-    };
-    handleAddCounter(payload);
-  };
+  // const [from, setFrom] = useState('');
+  // const [to, setTo] = useState('');
+  // const [date, setDate] = useState('');
+  // const [amount, setAmount] = useState('');
+  // const addDebt = () => {
+  //   const payload = {
+  //     id: debt.length,
+  //     from: from,
+  //     to: to,
+  //     amount: amount,
+  //     date: date,
+  //   };
+  //   handleAddCounter(payload);
+  // };
 
   return (
     <ScrollView style={styles.container}>
       <View>
-        {debt.map((item, idx) => (
-          <View key={idx} style={styles.debtWrap}>
-            <Text>{item.title}</Text>
+        {ReceiveDebt.map((item, idx) => (
+          <View key={'ReceiveDebt' + idx} style={styles.debtWrap}>
+            <Text>{item.phone}</Text>
             <Text>{item.total}</Text>
             <Text>---history---</Text>
             {item.history.map((his, index) => (
-              <View key={'his' + idx}>
+              <View key={'ReceiveDebtHis' + index}>
                 <Text>{his.date}</Text>
                 <Text>{his.amount}</Text>
               </View>
             ))}
           </View>
         ))}
-        <Button title="Delete" onPress={handleRemoveCounter} />
-        <View style={styles.addDebt}>
+        <Button title="Delete" onPress={ReceiveRemove} />
+        {/* <View style={styles.addDebt}>
           <View style={styles.inputWrap}>
             <Text>from : </Text>
             <TextInput
@@ -77,7 +75,7 @@ const App = ({
             />
           </View>
           <Button title="Submit" onPress={() => addDebt()} />
-        </View>
+        </View> */}
       </View>
     </ScrollView>
   );
@@ -121,4 +119,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default ReceiveBody;

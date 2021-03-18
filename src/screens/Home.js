@@ -7,6 +7,8 @@ import {
   View,
   ScrollView,
 } from 'react-native';
+import SendBody from '../containers/SendBody';
+import ReceiveBody from '../containers/ReceiveBody';
 
 const SendMoney = (props) => {
   return (
@@ -29,9 +31,7 @@ const SendMoney = (props) => {
           }}
         />
       </View>
-      <View style={styles.listWrap}>
-
-      </View>
+      {props.navigation.getParam('moneyParam') === 'Receive' ? <ReceiveBody /> : <SendBody />}
     </ScrollView>
   );
 };
