@@ -1,17 +1,11 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  Button,
-  TextInput,
-  View,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Button, View} from 'react-native';
+import CreateDebt from '../containers/CreateDebt';
 
 const ModalScreen = (props) => {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text style={{fontSize: 30}}>This is a modal!</Text>
+      <CreateDebt navigation={props.navigation} />
       <Button onPress={() => props.navigation.goBack()} title="Dismiss" />
     </View>
   );
