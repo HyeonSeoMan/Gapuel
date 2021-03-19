@@ -17,6 +17,12 @@ const mapDispatchToProps = (dispatch, props) => ({
         ? actions.ReceiveRemove(id)
         : actions.SendRemove(id),
     ),
+  addHistory: (payload) =>
+    dispatch(
+      props.navigation.getParam('moneyParam') === 'Receive'
+        ? actions.ReceiveAddHistory(payload)
+        : actions.SendAddHistory(payload),
+    ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailWrap);
