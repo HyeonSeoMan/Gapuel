@@ -3,8 +3,7 @@ const initialState = {
     {
       id: 0,
       phone: '010-0000-0000',
-      from: 'me',
-      to: 'b',
+      title: '박상선',
       total: 15000,
       history: [
         {
@@ -20,8 +19,7 @@ const initialState = {
     {
       id: 1,
       phone: '010-4431-5598',
-      from: 'me',
-      to: '승환',
+      title: '현승환',
       total: 8000,
       history: [
         {
@@ -35,8 +33,7 @@ const initialState = {
     {
       id: 0,
       phone: '010-1234-5736',
-      from: 'a',
-      to: 'me',
+      title: '박상선',
       total: 1000,
       history: [
         {
@@ -52,8 +49,7 @@ const initialState = {
     {
       id: 1,
       phone: '010-4431-5598',
-      from: '승환',
-      to: 'me',
+      title: '현승환',
       total: 8000,
       history: [
         {
@@ -75,10 +71,9 @@ const debt = (state = initialState, action) => {
         SendDebt: [
           ...SendDebt,
           {
-            id: action.payload.id,
-            title: action.payload.from + ' To ' + action.payload.to,
-            from: action.payload.from,
-            to: action.payload.to,
+            id: new Date(),
+            phone: action.payload.phone,
+            title: action.payload.title,
             total: action.payload.amount,
             history: [
               {
@@ -92,18 +87,22 @@ const debt = (state = initialState, action) => {
     case 'SendRemove':
       return {
         ...state,
-        SendDebt: SendDebt.slice(0, SendDebt.length - 1),
+        SendDebt: SendDebt.filter((Debt) => Debt.id !== action.id),
       };
+    // case 'SendAddHistory':
+    //   return {
+    //     ...state,
+    //     SendDebt: [...SendDebt],
+    //   };
     case 'ReceiveAdd':
       return {
         ...state,
         ReceiveDebt: [
           ...ReceiveDebt,
           {
-            id: action.payload.id,
-            title: action.payload.from + ' To ' + action.payload.to,
-            from: action.payload.from,
-            to: action.payload.to,
+            id: new Date(),
+            phone: action.payload.phone,
+            title: action.payload.title,
             total: action.payload.amount,
             history: [
               {
@@ -117,8 +116,13 @@ const debt = (state = initialState, action) => {
     case 'ReceiveRemove':
       return {
         ...state,
-        ReceiveDebt: ReceiveDebt.slice(0, ReceiveDebt.length - 1),
+        ReceiveDebt: ReceiveDebt.filter((Debt) => Debt.id !== action.id),
       };
+    // case 'ReceiveAddHistory':
+    //   return {
+    //     ...state,
+    //     ReceiveDebt: ReceiveDebt.filter((Debt) => Debt.id !== action.id),
+    //   };
     default:
       return state;
   }

@@ -1,20 +1,16 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  Button,
-  TextInput,
-  View,
-  ScrollView,
-} from 'react-native';
-import SendBody from '../containers/SendBody';
-import ReceiveBody from '../containers/ReceiveBody';
+import {StyleSheet, Text, Button, View, ScrollView} from 'react-native';
+import DebtList from '../containers/DebtList';
 
 const SendMoney = (props) => {
   return (
     <ScrollView>
       <View style={styles.headerWrap}>
-        <Text>{props.navigation.getParam('moneyParam') === 'Receive' ? '받을 돈' : '보낼 돈'}</Text>
+        <Text>
+          {props.navigation.getParam('moneyParam') === 'Receive'
+            ? '받을 돈'
+            : '보낼 돈'}
+        </Text>
         <Button
           title={
             props.navigation.getParam('moneyParam') === 'Receive'
@@ -31,7 +27,15 @@ const SendMoney = (props) => {
           }}
         />
       </View>
-      {props.navigation.getParam('moneyParam') === 'Receive' ? <ReceiveBody /> : <SendBody />}
+      <DebtList navigation={props.navigation} />
+      <Button
+        title="작성하기"
+        onPress={() => {
+          props.navigation.navigate('MyModal', {
+            moneyParam: props.navigation.getParam('moneyParam'),
+          });
+        }}
+      />
     </ScrollView>
   );
 };

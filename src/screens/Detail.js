@@ -7,13 +7,17 @@ import {
   View,
   ScrollView,
 } from 'react-native';
+import DetailWrap from '../containers/DetailWrap';
 
-const ReceiveMoney = () => {
+const Detail = (props) => {
   return (
     <View>
-      <Text>ReceiveMoney</Text>
+      <DetailWrap
+        navigation={props.navigation}
+        debtId={String(props.navigation.getParam('debtId'))}
+      />
     </View>
   );
 };
 
-export default ReceiveMoney;
+export default Detail;
