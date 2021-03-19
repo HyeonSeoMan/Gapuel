@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, Button, ScrollView, TextInput} from 'react-native';
 
-const AddHistory = () => {
+const AddHistory = ({addHistoryProp}) => {
   const [date, setDate] = useState('');
   const [amount, setAmount] = useState('');
   const submit = () => {
-    console.log(date, amount);
+    const payload = {
+      date: date,
+      amount: Number(amount),
+    };
+    addHistoryProp(payload);
   };
 
   return (

@@ -89,11 +89,27 @@ const debt = (state = initialState, action) => {
         ...state,
         SendDebt: SendDebt.filter((Debt) => Debt.id !== action.id),
       };
-    // case 'SendAddHistory':
-    //   return {
-    //     ...state,
-    //     SendDebt: [...SendDebt],
-    //   };
+    case 'SendAddHistory':
+      return {
+        ...state,
+        SendDebt: SendDebt.map((item) => {
+          if (item.id === action.payload.id) {
+            return {
+              ...item,
+              total: item.total + action.payload.amount,
+              history: [
+                ...item.history,
+                {
+                  date: action.payload.date,
+                  amount: action.payload.amount,
+                },
+              ],
+            };
+          } else {
+            return item;
+          }
+        }),
+      };
     case 'ReceiveAdd':
       return {
         ...state,
@@ -118,11 +134,27 @@ const debt = (state = initialState, action) => {
         ...state,
         ReceiveDebt: ReceiveDebt.filter((Debt) => Debt.id !== action.id),
       };
-    // case 'ReceiveAddHistory':
-    //   return {
-    //     ...state,
-    //     ReceiveDebt: ReceiveDebt.filter((Debt) => Debt.id !== action.id),
-    //   };
+    case 'ReceiveAddHistory':
+      return {
+        ...state,
+        ReceiveDebt: ReceiveDebt.map((item) => {
+          if (item.id === action.payload.id) {
+            return {
+              ...item,
+              total: item.total + action.payload.amount,
+              history: [
+                ...item.history,
+                {
+                  date: action.payload.date,
+                  amount: action.payload.amount,
+                },
+              ],
+            };
+          } else {
+            return item;
+          }
+        }),
+      };
     default:
       return state;
   }
