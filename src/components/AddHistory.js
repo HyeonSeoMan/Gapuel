@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Button, ScrollView, TextInput} from 'react-native';
+import {StyleSheet, Text, View, Button, TextInput} from 'react-native';
 
 const AddHistory = ({addHistoryProp}) => {
   const [date, setDate] = useState('');
