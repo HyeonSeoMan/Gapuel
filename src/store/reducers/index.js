@@ -74,11 +74,11 @@ const debt = (state = initialState, action) => {
             id: new Date(),
             phone: action.payload.phone,
             title: action.payload.title,
-            total: action.payload.amount,
+            total: Number(action.payload.amount),
             history: [
               {
                 date: action.payload.date,
-                amount: action.payload.amount,
+                amount: Number(action.payload.amount),
               },
             ],
           },
@@ -101,7 +101,7 @@ const debt = (state = initialState, action) => {
                 ...item.history,
                 {
                   date: action.payload.date,
-                  amount: action.payload.amount,
+                  amount: Number(action.payload.amount),
                 },
               ],
             };
@@ -119,11 +119,11 @@ const debt = (state = initialState, action) => {
             id: new Date(),
             phone: action.payload.phone,
             title: action.payload.title,
-            total: action.payload.amount,
+            total: Number(action.payload.amount),
             history: [
               {
                 date: action.payload.date,
-                amount: action.payload.amount,
+                amount: Number(action.payload.amount),
               },
             ],
           },
@@ -146,7 +146,7 @@ const debt = (state = initialState, action) => {
                 ...item.history,
                 {
                   date: action.payload.date,
-                  amount: action.payload.amount,
+                  amount: Number(action.payload.amount),
                 },
               ],
             };
