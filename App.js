@@ -5,12 +5,14 @@ import {Provider} from 'react-redux';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Home from './src/screens/Home';
+import ContactList from './src/screens/ContactList';
 import Detail from './src/screens/Detail';
 import ModalScreen from './src/screens/ModalScreen';
 
 const MainStack = createStackNavigator(
   {
-    Home: {screen: Home},
+    // Home: {screen: Home},
+    ContactList: {screen: ContactList},
     Detail: {screen: Detail},
   },
   {},
