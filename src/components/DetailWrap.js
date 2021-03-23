@@ -14,7 +14,7 @@ const DetailWrap = ({Debt, navigation, remove, addHistory}) => {
       {
         text: 'OK',
         onPress: () => {
-          remove(navigation.getParam('debtId'));
+          remove(navigation.getParam('phone'));
           navigation.goBack();
         },
       },
@@ -23,17 +23,17 @@ const DetailWrap = ({Debt, navigation, remove, addHistory}) => {
   const addHistoryProp = (e) => {
     const payload = {
       ...e,
-      id: navigation.getParam('debtId'),
+      phone: navigation.getParam('phone'),
     };
     addHistory(payload);
   };
   return (
     <View>
       <Text>Detail</Text>
-      <Text>{Debt.total}</Text>
+      {Debt && <Text>{Debt.total}</Text>}
       <Button title="Delete" onPress={removeDebt} />
       <Text>{navigation.getParam('moneyParam')}</Text>
-      <Text>{String(navigation.getParam('debtId'))}</Text>
+      <Text>{String(navigation.getParam('phone'))}</Text>
       {Debt && <HistoryList Histories={Debt.history} />}
       <AddHistory addHistoryProp={(payload) => addHistoryProp(payload)} />
     </View>

@@ -27,7 +27,7 @@ const DebtList = ({navigation, debt}) => {
                 onPress={() => {
                   navigation.navigate('Detail', {
                     moneyParam: moneyParam,
-                    debtId: item.id,
+                    phone: item.phone,
                   });
                 }}
               />

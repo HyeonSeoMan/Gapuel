@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, Button, TextInput, View} from 'react-native';
 
-const CreateDebt = ({add}) => {
-  const [phone, setPhone] = useState('');
-  const [title, setTitle] = useState('');
+const CreateDebt = ({info, add}) => {
   const [date, setDate] = useState('');
   const [amount, setAmount] = useState('');
   const addDebt = () => {
     const payload = {
-      phone: phone,
-      title: title,
+      phone: info.phone,
+      title: info.name,
       date: date,
       amount: amount,
     };
@@ -20,17 +18,11 @@ const CreateDebt = ({add}) => {
       <View>
         <View>
           <Text>phone : </Text>
-          <TextInput
-            placeholder={'phone'}
-            onChangeText={(text) => setPhone(text)}
-          />
+          <TextInput placeholder={'phone'} value={info.phone} />
         </View>
         <View>
           <Text>title : </Text>
-          <TextInput
-            placeholder={'title'}
-            onChangeText={(text) => setTitle(text)}
-          />
+          <TextInput placeholder={'title'} value={info.name} />
         </View>
         <View>
           <Text>date : </Text>
