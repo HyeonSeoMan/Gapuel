@@ -1,6 +1,6 @@
 import * as actions from '../store/actions';
 import {connect} from 'react-redux';
-import DebtList from '../components/DebtList';
+import ContactsList from '../components/ContactsList';
 
 const mapStateToProps = (state, props) => ({
   debt:
@@ -8,7 +8,8 @@ const mapStateToProps = (state, props) => ({
       ? state.ReceiveDebt
       : state.SendDebt,
   navigation: props.navigation,
+  contacts: props.contacts,
 });
 const mapDispatchToProps = (dispatch, props) => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(DebtList);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);

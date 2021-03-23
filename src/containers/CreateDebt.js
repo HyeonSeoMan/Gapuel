@@ -2,7 +2,9 @@ import * as actions from '../store/actions';
 import {connect} from 'react-redux';
 import CreateDebt from '../components/CreateDebt';
 
-const mapStateToProps = (state, props) => ({});
+const mapStateToProps = (state, props) => ({
+  info: props.info,
+});
 
 const mapDispatchToProps = (dispatch, props) => ({
   add: (payload) =>

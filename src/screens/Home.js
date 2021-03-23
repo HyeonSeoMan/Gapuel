@@ -11,7 +11,7 @@ const Home = (props) => {
       <Button
         title="작성하기"
         onPress={() => {
-          props.navigation.navigate('MyModal', {
+          props.navigation.navigate('ContactsScreen', {
             moneyParam: props.navigation.getParam('moneyParam'),
           });
         }}

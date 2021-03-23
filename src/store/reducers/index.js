@@ -1,7 +1,6 @@
 const initialState = {
   SendDebt: [
     {
-      id: 0,
       phone: '010-0000-0000',
       title: '박상선',
       total: 15000,
@@ -17,7 +16,6 @@ const initialState = {
       ],
     },
     {
-      id: 1,
       phone: '010-4431-5598',
       title: '현승환',
       total: 8000,
@@ -31,7 +29,6 @@ const initialState = {
   ],
   ReceiveDebt: [
     {
-      id: 0,
       phone: '010-1234-5736',
       title: '박상선',
       total: 1000,
@@ -47,7 +44,6 @@ const initialState = {
       ],
     },
     {
-      id: 1,
       phone: '010-4431-5598',
       title: '현승환',
       total: 8000,
@@ -71,7 +67,6 @@ const debt = (state = initialState, action) => {
         SendDebt: [
           ...SendDebt,
           {
-            id: new Date(),
             phone: action.payload.phone,
             title: action.payload.title,
             total: Number(action.payload.amount),
@@ -87,13 +82,13 @@ const debt = (state = initialState, action) => {
     case 'SendRemove':
       return {
         ...state,
-        SendDebt: SendDebt.filter((Debt) => Debt.id !== action.id),
+        SendDebt: SendDebt.filter((Debt) => Debt.phone !== action.phone),
       };
     case 'SendAddHistory':
       return {
         ...state,
         SendDebt: SendDebt.map((item) => {
-          if (item.id === action.payload.id) {
+          if (item.phone === action.payload.phone) {
             return {
               ...item,
               total: item.total + action.payload.amount,
@@ -116,7 +111,6 @@ const debt = (state = initialState, action) => {
         ReceiveDebt: [
           ...ReceiveDebt,
           {
-            id: new Date(),
             phone: action.payload.phone,
             title: action.payload.title,
             total: Number(action.payload.amount),
@@ -132,13 +126,13 @@ const debt = (state = initialState, action) => {
     case 'ReceiveRemove':
       return {
         ...state,
-        ReceiveDebt: ReceiveDebt.filter((Debt) => Debt.id !== action.id),
+        ReceiveDebt: ReceiveDebt.filter((Debt) => Debt.phone !== action.phone),
       };
     case 'ReceiveAddHistory':
       return {
         ...state,
         ReceiveDebt: ReceiveDebt.map((item) => {
-          if (item.id === action.payload.id) {
+          if (item.phone === action.payload.phone) {
             return {
               ...item,
               total: item.total + action.payload.amount,

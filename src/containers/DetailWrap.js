@@ -5,17 +5,17 @@ import DetailWrap from '../components/DetailWrap';
 const mapStateToProps = (state, props) => ({
   Debt:
     props.navigation.getParam('moneyParam') === 'Receive'
-      ? state.ReceiveDebt.find((e) => e.id == props.debtId)
-      : state.SendDebt.find((e) => e.id == props.debtId),
+      ? state.ReceiveDebt.find((e) => e.phone === props.phone)
+      : state.SendDebt.find((e) => e.phone === props.phone),
   navigation: props.navigation,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-  remove: (id) =>
+  remove: (phone) =>
     dispatch(
       props.navigation.getParam('moneyParam') === 'Receive'
-        ? actions.ReceiveRemove(id)
-        : actions.SendRemove(id),
+        ? actions.ReceiveRemove(phone)
+        : actions.SendRemove(phone),
     ),
   addHistory: (payload) =>
     dispatch(

@@ -14,7 +14,7 @@ const Detail = (props) => {
     <View>
       <DetailWrap
         navigation={props.navigation}
-        debtId={String(props.navigation.getParam('debtId'))}
+        phone={String(props.navigation.getParam('phone'))}
       />
     </View>
   );

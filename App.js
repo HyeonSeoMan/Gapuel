@@ -5,22 +5,22 @@ import {Provider} from 'react-redux';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Home from './src/screens/Home';
-import ContactList from './src/screens/ContactList';
 import Detail from './src/screens/Detail';
 import ModalScreen from './src/screens/ModalScreen';
+import ContactsScreen from './src/screens/ContactsScreen';
 
 const MainStack = createStackNavigator(
   {
-    // Home: {screen: Home},
-    ContactList: {screen: ContactList},
+    Home: {screen: Home},
     Detail: {screen: Detail},
+    MyModal: {screen: ModalScreen},
+    ContactsScreen: {screen: ContactsScreen},
   },
   {},
 );
 const RootStack = createStackNavigator(
   {
     Main: {screen: MainStack},
-    MyModal: {screen: ModalScreen},
   },
   {
     mode: 'modal',
