@@ -1,26 +1,29 @@
 const initialState = {
   SendDebt: [
     {
-      phone: '010-0000-0000',
-      title: '박상선',
+      phone: '01027481495',
+      title: '박 상선',
       total: 15000,
       history: [
         {
+          title: 'test1 - 1',
           date: '2021-03-14, 18:32',
           amount: 20000,
         },
         {
+          title: 'test1 - 2',
           date: '2021-03-15, 20:50',
           amount: -5000,
         },
       ],
     },
     {
-      phone: '010-4431-5598',
+      phone: '01044315598',
       title: '현승환',
       total: 8000,
       history: [
         {
+          title: 'test2 - 1',
           date: '2021-02-26, 11:17',
           amount: 8000,
         },
@@ -29,26 +32,29 @@ const initialState = {
   ],
   ReceiveDebt: [
     {
-      phone: '010-1234-5736',
+      phone: '01027481495',
       title: '박상선',
       total: 1000,
       history: [
         {
+          title: 'test3 - 1',
           date: '2021-03-14, 18:32',
           amount: 20000,
         },
         {
+          title: 'test3 - 2',
           date: '2021-03-15, 20:50',
           amount: -10000,
         },
       ],
     },
     {
-      phone: '010-4431-5598',
+      phone: '01044315598',
       title: '현승환',
       total: 8000,
       history: [
         {
+          title: 'test4 - 1',
           date: '2021-02-26, 11:17',
           amount: 8000,
         },
@@ -72,6 +78,7 @@ const debt = (state = initialState, action) => {
             total: Number(action.payload.amount),
             history: [
               {
+                title: action.payload.hisTitle,
                 date: action.payload.date,
                 amount: Number(action.payload.amount),
               },
@@ -95,6 +102,7 @@ const debt = (state = initialState, action) => {
               history: [
                 ...item.history,
                 {
+                  title: action.payload.title,
                   date: action.payload.date,
                   amount: Number(action.payload.amount),
                 },
@@ -116,6 +124,7 @@ const debt = (state = initialState, action) => {
             total: Number(action.payload.amount),
             history: [
               {
+                title: action.payload.hisTitle,
                 date: action.payload.date,
                 amount: Number(action.payload.amount),
               },
@@ -139,6 +148,7 @@ const debt = (state = initialState, action) => {
               history: [
                 ...item.history,
                 {
+                  title: action.payload.title,
                   date: action.payload.date,
                   amount: Number(action.payload.amount),
                 },

@@ -43,7 +43,11 @@ const ContactsList = ({navigation, debt, contacts}) => {
       <Text>ContactsList</Text>
       {contacts &&
         contacts.map((item) => (
-          <ContactsItem item={item} checkPhone={(e) => checkPhone(e)} />
+          <ContactsItem
+            key={item.phoneNumbers[0].number}
+            item={item}
+            checkPhone={(e) => checkPhone(e)}
+          />
         ))}
     </View>
   );

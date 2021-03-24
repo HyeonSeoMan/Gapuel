@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, Button, View, ScrollView} from 'react-native';
+import {Button, ScrollView} from 'react-native';
 import DebtList from '../containers/DebtList';
 import HomeHeader from '../containers/HomeHeader';
 

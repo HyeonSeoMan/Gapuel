@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, Button, TextInput, View} from 'react-native';
 
 const CreateDebt = ({info, add}) => {
+  const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
   const [amount, setAmount] = useState('');
   const addDebt = () => {
     const payload = {
+      hisTitle: title,
       phone: info.phone,
       title: info.name,
       date: date,
@@ -13,9 +15,21 @@ const CreateDebt = ({info, add}) => {
     };
     add(payload);
   };
+  const handleInputChange = (text) => {
+    if (/^\d+$/.test(text)) {
+      setAmount(text);
+    }
+  };
   return (
     <View style={{alignItems: 'center', justifyContent: 'center'}}>
       <View>
+        <View>
+          <Text>title : </Text>
+          <TextInput
+            placeholder={'title'}
+            onChangeText={(text) => setTitle(text)}
+          />
+        </View>
         <View>
           <Text>phone : </Text>
           <TextInput placeholder={'phone'} value={info.phone} />
@@ -34,8 +48,10 @@ const CreateDebt = ({info, add}) => {
         <View>
           <Text>amount : </Text>
           <TextInput
+            numeric
+            keyboardType={'numeric'}
             placeholder={'amount'}
-            onChangeText={(text) => setAmount(text)}
+            onChangeText={(text) => handleInputChange(text)}
           />
         </View>
         <Button title="Submit" onPress={() => addDebt()} />
