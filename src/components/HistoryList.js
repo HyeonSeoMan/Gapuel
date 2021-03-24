@@ -8,6 +8,7 @@ const HistoryList = ({Histories}) => {
         {Histories.map((history, idx) => (
           <View key={'history' + idx} style={styles.historyWrap}>
             <View style={styles.leftWrap}>
+              <Text>{history.title}</Text>
               <Text>{history.date}</Text>
               <Text>{history.amount}</Text>
             </View>
