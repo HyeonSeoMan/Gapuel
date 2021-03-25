@@ -1,34 +1,69 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Button} from 'react-native';
 
 const ContactsItem = (props) => {
   return (
-    <View>
-      <TouchableOpacity
-        style={styles.itemContainer}
-        onPress={() => {
-          const e = {
-            phone: props.item.phoneNumbers[0].number,
-            name: `${props.item.familyName} ${props.item.givenName}`,
-          };
-          props.checkPhone(e);
-        }}>
-        <Text style={styles.contactName}>
-          Name: {`${props.item.familyName} `} {props.item.givenName}
-        </Text>
-        <Text style={styles.phones}>{props.item.phoneNumbers[0].number}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={styles.itemContainer}
+      onPress={() => {
+        const e = {
+          phone: props.item.phoneNumbers[0].number,
+          name: `${props.item.familyName} ${props.item.givenName}`,
+        };
+        props.checkPhone(e);
+      }}>
+      <View style={styles.infoWrap}>
+        <View style={styles.leftWrap}>
+          <Text style={styles.leftWrapTitle}>
+            {`${props.item.familyName} `} {props.item.givenName}
+          </Text>
+          <Text style={styles.leftWrapPhone}>{props.item.phoneNumbers[0].number}</Text>
+        </View>
+        <View style={styles.rightWrap}>
+          <Text style={styles.rightWrapButton}>Detail</Text>
+        </View>
+      </View>
+      <View style={styles.hr} />
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   itemContainer: {
-    margin: 10,
+    // paddingBottom: 20,
   },
-  contactName: {
-    fontSize: 16,
-    color: 'blue',
+  infoWrap: {
+    flexDirection: 'row',
+    marginTop: 8,
+    marginBottom: 15,
+  },
+  leftWrapTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 6,
+  },
+  leftWrapPhone: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#657A8F80',
+  },
+  rightWrap: {
+    marginLeft: 'auto',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+  },
+  rightWrapButton: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#657A8F',
+  },
+  hr: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    height: 1,
+    width: '90%',
+    opacity: 0.1,
+    backgroundColor: '#909090',
   },
 });
 

@@ -6,6 +6,9 @@ const HomeHeader = ({names, debt, navigation}) => {
     accum += curr.total;
     return accum;
   }, 0);
+  const numComma = (num) =>
+    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
   return (
     <View style={styles.headerWrap}>
       <View style={styles.totalWrap}>
@@ -20,7 +23,7 @@ const HomeHeader = ({names, debt, navigation}) => {
             ? '받아야 하는 돈'
             : '보내야 하는 돈'}
         </Text>
-        <Text style={styles.totalAmount}>{'₩ ' + totalAmount}</Text>
+        <Text style={styles.totalAmount}>{'₩ ' + numComma(totalAmount)}</Text>
       </View>
       <View style={styles.paramWrap}>
         <TouchableOpacity
@@ -33,7 +36,7 @@ const HomeHeader = ({names, debt, navigation}) => {
             {names.send.length > 0 && (
               <Text style={[styles.names, {color: '#69B07E'}]}>
                 {names.send[0]}
-                {names.send.length > 0 && ` 외 ${names.send.length - 1} 명`}
+                {names.send.length > 1 && ` 외 ${names.send.length - 1} 명`}
               </Text>
             )}
             {names.send.length === 0 && (
@@ -52,7 +55,7 @@ const HomeHeader = ({names, debt, navigation}) => {
             {names.receive.length > 0 && (
               <Text style={[styles.names, {color: '#EC5C4F'}]}>
                 {names.receive[0]}
-                {names.receive.length > 0 &&
+                {names.receive.length > 1 &&
                   ` 외 ${names.receive.length - 1} 명`}
               </Text>
             )}

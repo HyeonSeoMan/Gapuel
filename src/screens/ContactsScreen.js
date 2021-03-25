@@ -36,30 +36,9 @@ const ContactsScreen = (props) => {
         console.log('cannot access');
       });
   };
-
-  // const renderItem = ({item}) => (
-  //   <TouchableOpacity
-  //     style={styles.itemContainer}
-  //     onPress={() => {
-  //       props.navigation.navigate('MyModal', {
-  //         phone: item.phoneNumbers[0].number,
-  //         name: `${item.familyName} ${item.givenName}`,
-  //       });
-  //     }}>
-  //     <Text style={styles.contactName}>
-  //       Name: {`${item.familyName} `} {item.givenName}
-  //     </Text>
-  //     <Text style={styles.phones}>{item.phoneNumbers[0].number}</Text>
-  //   </TouchableOpacity>
-  // );
   return (
     <View style={styles.container}>
-      {/* <FlatList
-        data={contacts}
-        renderItem={renderItem}
-        numColumns={1}
-        keyExtractor={(item, index) => index}
-      /> */}
+      <Text>검색기능 구현</Text>
       <ContactsList navigation={props.navigation} contacts={contacts} />
     </View>
   );

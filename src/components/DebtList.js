@@ -6,6 +6,8 @@ const DebtList = ({navigation, debt}) => {
     navigation.getParam('moneyParam') === undefined
       ? 'Send'
       : navigation.getParam('moneyParam');
+  const numComma = (num) =>
+    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return (
     <View style={styles.container}>
       <View style={styles.debtTitle}>
@@ -27,7 +29,7 @@ const DebtList = ({navigation, debt}) => {
               <Text style={styles.leftWrapPhone}>{item.phone}</Text>
             </View>
             <View style={styles.rightWrap}>
-              <Text style={styles.rightWrapTotal}>₩ {item.total}</Text>
+              <Text style={styles.rightWrapTotal}>₩ {numComma(item.total)}</Text>
             </View>
           </TouchableOpacity>
         ))}

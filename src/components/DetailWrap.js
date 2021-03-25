@@ -27,10 +27,12 @@ const DetailWrap = ({Debt, navigation, remove, addHistory}) => {
     };
     addHistory(payload);
   };
+  const numComma = (num) =>
+    num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return (
     <View>
       <Text>Detail</Text>
-      {Debt && <Text>{Debt.total}</Text>}
+      {Debt && <Text>{numComma(Debt.total)}</Text>}
       <Button title="Delete" onPress={removeDebt} />
       <Text>{navigation.getParam('moneyParam')}</Text>
       <Text>{String(navigation.getParam('phone'))}</Text>

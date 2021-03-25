@@ -19,7 +19,7 @@ const initialState = {
     },
     {
       phone: '01044315598',
-      title: '현승환',
+      title: '현 승환',
       total: 8000,
       history: [
         {
@@ -33,7 +33,7 @@ const initialState = {
   ReceiveDebt: [
     {
       phone: '01027481495',
-      title: '박상선',
+      title: '박 상선',
       total: 1000,
       history: [
         {
@@ -50,7 +50,7 @@ const initialState = {
     },
     {
       phone: '01044315598',
-      title: '현승환',
+      title: '현 승환',
       total: 8000,
       history: [
         {

@@ -37,22 +37,50 @@ const ContactsList = ({navigation, debt, contacts}) => {
       ]);
     }
   };
-
   return (
-    <View>
-      <Text>ContactsList</Text>
-      {contacts &&
-        contacts.map((item) => (
-          <ContactsItem
-            key={item.phoneNumbers[0].number}
-            item={item}
-            checkPhone={(e) => checkPhone(e)}
-          />
-        ))}
+    <View style={styles.container}>
+      <View style={styles.contactsListWrap}>
+        <Text style={styles.contactsListTitle}>연락처 목록</Text>
+        {contacts !== null &&
+          contacts.length > 0 &&
+          contacts.map((item) => (
+            <ContactsItem
+              key={item.phoneNumbers[0].number}
+              item={item}
+              checkPhone={(e) => checkPhone(e)}
+            />
+          ))}
+        {contacts !== null && contacts.length === 0 && (
+          <Text>연락처가 없습니다.</Text>
+        )}
+      </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    margin: 20,
+  },
+  contactsListWrap: {
+    marginTop: 20,
+    padding: 12,
+    borderRadius: 3,
+    backgroundColor: 'white',
+    shadowColor: 'rgb(50, 50, 50)',
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: -1,
+      width: 0,
+    },
+  },
+  contactsListTitle: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#657A8F90',
+    marginBottom: 10,
+  },
+});
 
 export default ContactsList;
