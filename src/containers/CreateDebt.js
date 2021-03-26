@@ -4,6 +4,7 @@ import CreateDebt from '../components/CreateDebt';
 
 const mapStateToProps = (state, props) => ({
   info: props.info,
+  navigation: props.navigation,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

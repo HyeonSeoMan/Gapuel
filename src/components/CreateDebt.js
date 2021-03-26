@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, TextInput, View, Image, Button} from
 import Modal from 'react-native-modal';
 import DatePicker from 'react-native-date-picker';
 
-const CreateDebt = ({info, add}) => {
+const CreateDebt = ({info, navigation, add}) => {
   const [title, setTitle] = useState('');
   const [date, setDate] = useState(undefined);
   const [time, setTime] = useState(undefined);
@@ -11,17 +11,28 @@ const CreateDebt = ({info, add}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [isDate, setIsDate] = useState(true);
   const addDebt = () => {
-    const payload = {
-      hisTitle: title,
-      phone: info.phone,
-      title: info.name,
-      date: date,
-      amount: amount,
-    };
-    add(payload);
+    if (date === undefined) {
+      alert('날짜를 선택해 주세요.');
+    } else if (time === undefined) {
+      alert('시간을 선택해 주세요.');
+    } else if (amount === '') {
+      alert('비용을 작성해 주세요.');
+    } else {
+      const payload = {
+        phone: info.phone,
+        title: info.name,
+        hisTitle: title,
+        date: dateFormat() + timeFormat(),
+        amount: amount,
+      };
+      add(payload);
+      navigation.navigate('Home');
+    }
   };
   const handleInputChange = (text) => {
     if (/^\d+$/.test(text)) {
+      setAmount(text);
+    } else if (text === '') {
       setAmount(text);
     }
   };
@@ -89,7 +100,7 @@ const CreateDebt = ({info, add}) => {
             <Text style={styles.infoTitle}>Add History</Text>
           </View>
           <Text style={styles.infoDetail}>
-            해당 부채의 내용을 기록해주세요. 지금 작성하는 내용이 첫 로그로 기록됩니다.
+            해당 부채의 세부 내용을 작성해 주세요. 지금 작성하는 내용이 첫 로그로 기록됩니다.
           </Text>
           <View style={styles.inputBox}>
             <TextInput
@@ -189,7 +200,11 @@ const CreateDebt = ({info, add}) => {
               />
             </View>
           )}
-          <Button title="Hide modal" onPress={()=> setModalVisible(!isModalVisible)} />
+          <TouchableOpacity
+            style={styles.modalClose}
+            onPress={() => setModalVisible(!isModalVisible)}>
+            <Text style={styles.modalCloseText}>닫기</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
     </View>
@@ -339,6 +354,28 @@ const styles = StyleSheet.create({
   },
   datePickerWrap: {
     marginTop: 30,
+  },
+  modalClose: {
+    margin: 20,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    backgroundColor: '#BDBEC0',
+    padding: 18,
+    paddingLeft: 30,
+    paddingRight: 30,
+    borderRadius: 35,
+    shadowColor: 'rgb(50, 50, 50)',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: -1,
+      width: 0,
+    },
+  },
+  modalCloseText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '600',
   },
 });
 export default CreateDebt;
