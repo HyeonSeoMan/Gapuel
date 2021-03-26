@@ -30,7 +30,7 @@ const HomeHeader = ({names, debt, navigation}) => {
           style={styles.paramBox}
           onPress={() => navigation.navigate('Home', {moneyParam: 'Send'})}>
           <View style={styles.typeChip}>
-            <Text style={styles.typeChipText}>Send</Text>
+            <Text style={styles.typeChipText}>받을 돈</Text>
           </View>
           <View style={styles.namesWrap}>
             {names.send.length > 0 && (
@@ -49,7 +49,7 @@ const HomeHeader = ({names, debt, navigation}) => {
           style={styles.paramBox}
           onPress={() => navigation.navigate('Home', {moneyParam: 'Receive'})}>
           <View style={styles.typeChip}>
-            <Text style={styles.typeChipText}>Receive</Text>
+            <Text style={styles.typeChipText}>보낼 돈</Text>
           </View>
           <View style={styles.namesWrap}>
             {names.receive.length > 0 && (

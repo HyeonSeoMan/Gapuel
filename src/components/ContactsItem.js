@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, Button} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 
 const ContactsItem = (props) => {
   return (
@@ -20,7 +20,10 @@ const ContactsItem = (props) => {
           <Text style={styles.leftWrapPhone}>{props.item.phoneNumbers[0].number}</Text>
         </View>
         <View style={styles.rightWrap}>
-          <Text style={styles.rightWrapButton}>Detail</Text>
+          <Image
+            style={styles.rightWrapButton}
+            source={require('../assets/icons/ico_arrow.png')}
+          />
         </View>
       </View>
       <View style={styles.hr} />
@@ -51,11 +54,11 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginTop: 'auto',
     marginBottom: 'auto',
+    marginRight: 10,
   },
   rightWrapButton: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#657A8F',
+    width: 12,
+    height: 12,
   },
   hr: {
     marginLeft: 'auto',
