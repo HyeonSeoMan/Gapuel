@@ -51,7 +51,9 @@ const ContactsList = ({navigation, debt, contacts}) => {
             />
           ))}
         {contacts !== null && contacts.length === 0 && (
-          <Text>연락처가 없습니다.</Text>
+          <View style={styles.noContact}>
+            <Text style={styles.noContactText}>연락처 없음</Text>
+          </View>
         )}
       </View>
     </View>
@@ -63,7 +65,8 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   contactsListWrap: {
-    marginTop: 20,
+    marginTop: 10,
+    minHeight: '83%',
     padding: 12,
     borderRadius: 3,
     backgroundColor: 'white',
@@ -80,6 +83,16 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#657A8F90',
     marginBottom: 10,
+  },
+  noContact: {
+    marginTop: 80,
+    marginBottom: 80,
+  },
+  noContactText: {
+    fontSize: 20,
+    fontWeight: '400',
+    color: '#657A8F80',
+    textAlign: 'center',
   },
 });
 

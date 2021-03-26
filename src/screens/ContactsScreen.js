@@ -10,9 +10,11 @@ import {
 } from 'react-native';
 import Contacts from 'react-native-contacts';
 import ContactsList from '../containers/ContactsList';
+import ContactsSearch from '../components/ContactsSearch';
 
 const ContactsScreen = (props) => {
   const [contacts, setContacts] = useState(null);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -30,16 +32,39 @@ const ContactsScreen = (props) => {
   const getList = () => {
     Contacts.getAll()
       .then((item) => {
-        setContacts(item);
+        const testItem = item.reduce((accum, curr) => {
+          curr['search'] = curr.familyName + curr.givenName + curr.phoneNumbers[0].number.replace(/\-/g, '');
+          accum.push(curr);
+          return accum;
+        }, []);
+        setContacts(testItem);
       })
       .catch((e) => {
         console.log('cannot access');
       });
   };
+  const getSearch = (e) => {
+    const item = e.replace(/\-/g, '');
+    setSearchText(item);
+  };
+
+  const searchedContacts = () => {
+    if (contacts !== null) {
+      const searched = contacts.reduce((accum, curr) => {
+        if (curr.search.includes(searchText)) {
+          accum.push(curr);
+        }
+        return accum;
+      }, []);
+      return searched;
+    }
+    return null;
+  };
+
   return (
     <View style={styles.container}>
-      <Text>검색기능 구현</Text>
-      <ContactsList navigation={props.navigation} contacts={contacts} />
+      <ContactsSearch getSearch={(e) => getSearch(e)} />
+      <ContactsList navigation={props.navigation} contacts={searchedContacts()} />
     </View>
   );
 };
