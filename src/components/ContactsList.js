@@ -14,7 +14,7 @@ const ContactsList = ({navigation, debt, contacts}) => {
     }, true);
 
     if (check) {
-      navigation.navigate('MyModal', {
+      navigation.navigate('AddDebtScreen', {
         phone: e.phone,
         name: e.name,
       });

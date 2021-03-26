@@ -6,14 +6,14 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Home from './src/screens/Home';
 import Detail from './src/screens/Detail';
-import ModalScreen from './src/screens/ModalScreen';
+import AddDebtScreen from './src/screens/AddDebtScreen';
 import ContactsScreen from './src/screens/ContactsScreen';
 
 const MainStack = createStackNavigator(
   {
     Home: {screen: Home},
     Detail: {screen: Detail},
-    MyModal: {screen: ModalScreen},
+    AddDebtScreen: {screen: AddDebtScreen},
     ContactsScreen: {screen: ContactsScreen},
   },
   {},
