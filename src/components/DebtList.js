@@ -29,7 +29,9 @@ const DebtList = ({navigation, debt}) => {
               <Text style={styles.leftWrapPhone}>{item.phone}</Text>
             </View>
             <View style={styles.rightWrap}>
-              <Text style={styles.rightWrapTotal}>₩ {numComma(item.total)}</Text>
+              <Text style={styles.rightWrapTotal}>
+                ₩ {numComma(item.total)}
+              </Text>
             </View>
           </TouchableOpacity>
         ))}

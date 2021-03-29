@@ -11,12 +11,12 @@ import DetailWrap from '../containers/DetailWrap';
 
 const Detail = (props) => {
   return (
-    <View>
+    <ScrollView>
       <DetailWrap
         navigation={props.navigation}
         phone={String(props.navigation.getParam('phone'))}
       />
-    </View>
+    </ScrollView>
   );
 };
 
