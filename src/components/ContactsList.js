@@ -63,10 +63,11 @@ const ContactsList = ({navigation, debt, contacts}) => {
 const styles = StyleSheet.create({
   container: {
     margin: 20,
+    marginTop: 0,
   },
   contactsListWrap: {
     marginTop: 10,
-    minHeight: '83%',
+    minHeight: '85%',
     padding: 12,
     borderRadius: 3,
     backgroundColor: 'white',

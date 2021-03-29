@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 
 const HistoryList = ({Histories}) => {
   return (
-    <View>
+    <View style={styles.container}>
       {Histories.map((history, idx) => (
         <>
           <View key={'history' + idx} style={styles.historyWrap}>
@@ -23,6 +23,20 @@ const HistoryList = ({Histories}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    margin: 10,
+    minHeight: '100%',
+    padding: 12,
+    borderRadius: 3,
+    backgroundColor: 'white',
+    shadowColor: 'rgb(50, 50, 50)',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: -1,
+      width: 0,
+    },
+  },
   historyWrap: {
     margin: 20,
     marginTop: 8,
@@ -59,7 +73,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     height: 1,
     width: '90%',
-    opacity: 0.1,
+    opacity: 0.2,
     backgroundColor: '#909090',
   },
 });

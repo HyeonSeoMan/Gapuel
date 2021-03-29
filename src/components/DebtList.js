@@ -9,50 +9,33 @@ const DebtList = ({navigation, debt}) => {
   const numComma = (num) =>
     num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   return (
-    <View style={styles.container}>
-      <View style={styles.debtTitle}>
-        <Text style={styles.debtTitleText}>채무 목록</Text>
-      </View>
-      <View>
-        {debt.map((item, idx) => (
-          <TouchableOpacity
-            key={'debt' + idx}
-            style={styles.debtWrap}
-            onPress={() => {
-              navigation.navigate('Detail', {
-                moneyParam: moneyParam,
-                phone: item.phone,
-              });
-            }}>
-            <View style={styles.leftWrap}>
-              <Text style={styles.leftWrapTitle}>{item.title}</Text>
-              <Text style={styles.leftWrapPhone}>{item.phone}</Text>
-            </View>
-            <View style={styles.rightWrap}>
-              <Text style={styles.rightWrapTotal}>
-                ₩ {numComma(item.total)}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </View>
+    <View>
+      {debt.map((item, idx) => (
+        <TouchableOpacity
+          key={'debt' + idx}
+          style={styles.debtWrap}
+          onPress={() => {
+            navigation.navigate('Detail', {
+              moneyParam: moneyParam,
+              phone: item.phone,
+            });
+          }}>
+          <View style={styles.leftWrap}>
+            <Text style={styles.leftWrapTitle}>{item.title}</Text>
+            <Text style={styles.leftWrapPhone}>{item.phone}</Text>
+          </View>
+          <View style={styles.rightWrap}>
+            <Text style={styles.rightWrapTotal}>
+              ₩ {numComma(item.total)}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 40,
-    marginTop: 80,
-  },
-  debtTitle: {
-    marginBottom: 12,
-  },
-  debtTitleText: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#657A8F',
-  },
   debtWrap: {
     backgroundColor: '#F9F9F9',
     padding: 12,

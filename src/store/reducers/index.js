@@ -71,7 +71,6 @@ const debt = (state = initialState, action) => {
       return {
         ...state,
         SendDebt: [
-          ...SendDebt,
           {
             phone: action.payload.phone,
             title: action.payload.title,
@@ -84,6 +83,7 @@ const debt = (state = initialState, action) => {
               },
             ],
           },
+          ...SendDebt,
         ],
       };
     case 'SendRemove':
@@ -100,12 +100,12 @@ const debt = (state = initialState, action) => {
               ...item,
               total: item.total + action.payload.amount,
               history: [
-                ...item.history,
                 {
                   title: action.payload.title,
                   date: action.payload.date,
                   amount: Number(action.payload.amount),
                 },
+                ...item.history,
               ],
             };
           } else {
@@ -117,7 +117,6 @@ const debt = (state = initialState, action) => {
       return {
         ...state,
         ReceiveDebt: [
-          ...ReceiveDebt,
           {
             phone: action.payload.phone,
             title: action.payload.title,
@@ -130,6 +129,7 @@ const debt = (state = initialState, action) => {
               },
             ],
           },
+          ...ReceiveDebt,
         ],
       };
     case 'ReceiveRemove':
@@ -146,12 +146,12 @@ const debt = (state = initialState, action) => {
               ...item,
               total: item.total + action.payload.amount,
               history: [
-                ...item.history,
                 {
                   title: action.payload.title,
                   date: action.payload.date,
                   amount: Number(action.payload.amount),
                 },
+                ...item.history,
               ],
             };
           } else {
