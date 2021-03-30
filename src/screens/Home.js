@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
   debtTitle: {
     marginBottom: 14,
     flexDirection: 'row',
+    paddingBottom: 12,
+    borderBottomWidth: 2,
+    borderBottomColor: '#7A787850',
   },
   debtTitleText: {
     fontSize: 18,

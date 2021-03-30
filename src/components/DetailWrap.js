@@ -7,7 +7,7 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const removeDebt = () => {
-    Alert.alert('채무 내역 전체가 삭제됩니다', '정말 삭제하시겠습니까?', [
+    Alert.alert('상세 페이지 전체가 삭제됩니다', '정말 삭제하시겠습니까?', [
       {
         text: 'Cancel',
         onPress: () => console.log('Cancel Pressed'),
@@ -117,12 +117,31 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
               />
             </View>
           )}
-          <HistoryList
-            Histories={Debt.history}
-            isEdit={isEdit}
-            toggleEdit={() => setIsEdit(!isEdit)}
-            removeHistoryProp={(e) => removeHistoryProp(e)}
-          />
+          {Debt.history.length > 0 && (
+            <HistoryList
+              Histories={Debt.history}
+              isEdit={isEdit}
+              toggleEdit={() => setIsEdit(!isEdit)}
+              removeHistoryProp={(e) => removeHistoryProp(e)}
+            />
+          )}
+          {Debt.history.length === 0 && (
+            <View style={styles.noDataWrap}>
+              <View style={styles.noDataBox}>
+                <Image
+                  style={styles.noDataIco}
+                  source={require('../assets/icons/ico_noData.png')}
+                />
+                <Text style={styles.noDataText}>작성된 내역이 없습니다.</Text>
+                <Text style={styles.noDataTextSub}>작성하기 버튼을 통해 새로운 내역을 작성해 주세요.</Text>
+                <TouchableOpacity
+                  style={styles.noDataButton}
+                  onPress={() => setIsAddOpen(!isAddOpen)}>
+                  <Text style={styles.noDataButtonText}>작성하기</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
         </>
       )}
     </View>
@@ -243,6 +262,60 @@ const styles = StyleSheet.create({
     height: '100%',
     opacity: 0.3,
     backgroundColor: '#BDBEC0',
+  },
+  noDataWrap: {
+    margin: 10,
+    minHeight: '80%',
+    padding: 12,
+    borderRadius: 3,
+    backgroundColor: 'white',
+    shadowColor: 'rgb(50, 50, 50)',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: -1,
+      width: 0,
+    },
+  },
+  noDataBox: {
+    marginTop: '20%',
+    alignItems: 'center',
+  },
+  noDataIco: {
+    width: 110,
+    height: 110,
+  },
+  noDataText: {
+    marginTop: 10,
+    marginBottom: 6,
+    fontSize: 19,
+    fontWeight: '600',
+    color: '#7A7878',
+  },
+  noDataTextSub: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#7A7878',
+  },
+  noDataButton: {
+    marginTop: 20,
+    backgroundColor: '#7A7878',
+    padding: 18,
+    paddingLeft: 25,
+    paddingRight: 25,
+    borderRadius: 6,
+    shadowColor: 'rgb(50, 50, 50)',
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: -1,
+      width: 0,
+    },
+  },
+  noDataButtonText: {
+    fontSize: 18,
+    fontWeight: '400',
+    color: 'white',
   },
 });
 export default DetailWrap;

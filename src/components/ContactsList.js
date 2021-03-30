@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Alert} from 'react-native';
+import {StyleSheet, Text, View, Alert, Image} from 'react-native';
 import ContactsItem from './ContactsItem';
 
 const ContactsList = ({navigation, debt, contacts}) => {
@@ -19,22 +19,26 @@ const ContactsList = ({navigation, debt, contacts}) => {
         name: e.name,
       });
     } else {
-      Alert.alert('이미 만들어진 번호입니다.', '디테일로 이동?', [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {
-          text: 'OK',
-          onPress: () => {
-            navigation.navigate('Detail', {
-              moneyParam: moneyParam,
-              phone: e.phone,
-            });
+      Alert.alert(
+        '이미 목록이 생성된 번호입니다.',
+        '세부 페이지로 이동하시겠습니까?',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
           },
-        },
-      ]);
+          {
+            text: 'OK',
+            onPress: () => {
+              navigation.navigate('Detail', {
+                moneyParam: moneyParam,
+                phone: e.phone,
+              });
+            },
+          },
+        ],
+      );
     }
   };
   return (
@@ -52,7 +56,11 @@ const ContactsList = ({navigation, debt, contacts}) => {
           ))}
         {contacts !== null && contacts.length === 0 && (
           <View style={styles.noContact}>
-            <Text style={styles.noContactText}>연락처 없음</Text>
+            <Image
+              style={styles.noDataIco}
+              source={require('../assets/icons/ico_noData.png')}
+            />
+            <Text style={styles.noContactText}>등록된 연락처가 없습니다.</Text>
           </View>
         )}
       </View>
@@ -86,13 +94,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   noContact: {
-    marginTop: 80,
-    marginBottom: 80,
+    marginTop: '30%',
+    alignItems: 'center',
+  },
+  noDataIco: {
+    width: 110,
+    height: 110,
+    marginBottom: 10,
   },
   noContactText: {
-    fontSize: 20,
-    fontWeight: '400',
-    color: '#657A8F80',
+    fontSize: 19,
+    fontWeight: '600',
+    color: '#7A7878',
     textAlign: 'center',
   },
 });

@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
     color: '#8F8F8F',
   },
   cancelIcoWrap: {
-    marginLeft: 20,
+    marginLeft: 15,
+    marginRight: -15,
     justifyContent: 'center',
   },
   cancelIco: {

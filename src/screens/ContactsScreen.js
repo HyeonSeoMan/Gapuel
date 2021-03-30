@@ -64,7 +64,10 @@ const ContactsScreen = (props) => {
   return (
     <View style={styles.container}>
       <ContactsSearch getSearch={(e) => getSearch(e)} />
-      <ContactsList navigation={props.navigation} contacts={searchedContacts()} />
+      <ContactsList
+        navigation={props.navigation}
+        contacts={searchedContacts()}
+      />
     </View>
   );
 };
