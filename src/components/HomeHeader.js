@@ -20,8 +20,8 @@ const HomeHeader = ({names, debt, navigation}) => {
               : {color: '#69B07E'},
           ]}>
           {navigation.getParam('moneyParam') === 'Receive'
-            ? '받아야 하는 돈'
-            : '보내야 하는 돈'}
+            ? '보내야 하는 돈'
+            : '받아야 하는 돈'}
         </Text>
         <Text style={styles.totalAmount}>{'₩ ' + numComma(totalAmount)}</Text>
       </View>

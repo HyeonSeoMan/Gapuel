@@ -6,13 +6,15 @@ const initialState = {
       total: 15000,
       history: [
         {
+          createAt: '2021-03-14T18:32',
           title: 'test1 - 1',
-          date: '2021-03-14, 18:32',
+          date: '2021-03-14T18:32',
           amount: 20000,
         },
         {
+          createAt: '2021-03-15T20:50',
           title: 'test1 - 2',
-          date: '2021-03-15, 20:50',
+          date: '2021-03-15T20:50',
           amount: -5000,
         },
       ],
@@ -23,8 +25,9 @@ const initialState = {
       total: 8000,
       history: [
         {
+          createAt: '2021-02-26T11:17',
           title: 'test2 - 1',
-          date: '2021-02-26, 11:17',
+          date: '2021-02-26T11:17',
           amount: 8000,
         },
       ],
@@ -34,16 +37,18 @@ const initialState = {
     {
       phone: '01027481495',
       title: '박 상선',
-      total: 1000,
+      total: 10000,
       history: [
         {
+          createAt: '2021-03-14T18:32',
           title: 'test3 - 1',
-          date: '2021-03-14, 18:32',
+          date: '2021-03-14T18:32',
           amount: 20000,
         },
         {
+          createAt: '2021-03-15T20:50',
           title: 'test3 - 2',
-          date: '2021-03-15, 20:50',
+          date: '2021-03-15T20:50',
           amount: -10000,
         },
       ],
@@ -54,8 +59,9 @@ const initialState = {
       total: 8000,
       history: [
         {
+          createAt: '2021-02-26T11:17',
           title: 'test4 - 1',
-          date: '2021-02-26, 11:17',
+          date: '2021-02-26T11:17',
           amount: 8000,
         },
       ],
@@ -77,6 +83,7 @@ const debt = (state = initialState, action) => {
             total: Number(action.payload.amount),
             history: [
               {
+                createAt: new Date(),
                 title: action.payload.hisTitle,
                 date: action.payload.date,
                 amount: Number(action.payload.amount),
@@ -101,6 +108,7 @@ const debt = (state = initialState, action) => {
               total: item.total + action.payload.amount,
               history: [
                 {
+                  createAt: new Date(),
                   title: action.payload.title,
                   date: action.payload.date,
                   amount: Number(action.payload.amount),
@@ -108,6 +116,26 @@ const debt = (state = initialState, action) => {
                 ...item.history,
               ],
             };
+          } else {
+            return item;
+          }
+        }),
+      };
+    case 'SendRemoveHistory':
+      return {
+        ...state,
+        SendDebt: SendDebt.map((item) => {
+          if (item.phone === action.payload.phone) {
+            const ordered = item.history.reduce((accum, curr) => {
+              if (curr.createAt !== action.payload.createAt) accum.push(curr);
+              return accum;
+            }, []);
+            const target = {
+              ...item,
+              total: item.total - action.payload.amount,
+              history: ordered,
+            };
+            return target;
           } else {
             return item;
           }
@@ -123,6 +151,7 @@ const debt = (state = initialState, action) => {
             total: Number(action.payload.amount),
             history: [
               {
+                createAt: new Date(),
                 title: action.payload.hisTitle,
                 date: action.payload.date,
                 amount: Number(action.payload.amount),
@@ -147,6 +176,7 @@ const debt = (state = initialState, action) => {
               total: item.total + action.payload.amount,
               history: [
                 {
+                  createAt: new Date(),
                   title: action.payload.title,
                   date: action.payload.date,
                   amount: Number(action.payload.amount),
@@ -154,6 +184,26 @@ const debt = (state = initialState, action) => {
                 ...item.history,
               ],
             };
+          } else {
+            return item;
+          }
+        }),
+      };
+    case 'ReceiveRemoveHistory':
+      return {
+        ...state,
+        ReceiveDebt: ReceiveDebt.map((item) => {
+          if (item.phone === action.payload.phone) {
+            const ordered = item.history.reduce((accum, curr) => {
+              if (curr.createAt !== action.payload.createAt) accum.push(curr);
+              return accum;
+            }, []);
+            const target = {
+              ...item,
+              total: item.total - action.payload.amount,
+              history: ordered,
+            };
+            return target;
           } else {
             return item;
           }

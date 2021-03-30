@@ -1,12 +1,23 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 
-const HistoryList = ({Histories}) => {
+const HistoryList = ({Histories, isEdit, removeHistoryProp, toggleEdit}) => {
   return (
     <View style={styles.container}>
+      {isEdit && (
+        <TouchableOpacity
+          style={styles.toggleWrap}
+          onPress={() => toggleEdit()}>
+          <Image
+            style={styles.controlIco}
+            source={require('../assets/icons/ico_setting.png')}
+          />
+          <Text style={styles.toggleWrapText}>닫기</Text>
+        </TouchableOpacity>
+      )}
       {Histories.map((history, idx) => (
-        <>
-          <View key={'history' + idx} style={styles.historyWrap}>
+        <View key={'history' + idx}>
+          <View style={styles.historyWrap}>
             <View style={styles.leftWrap}>
               <Text style={styles.titleText}>{history.title}</Text>
             </View>
@@ -14,9 +25,19 @@ const HistoryList = ({Histories}) => {
               <Text style={styles.amountText}>{history.amount}</Text>
               <Text style={styles.dateText}>{history.date}</Text>
             </View>
+            {isEdit && (
+              <TouchableOpacity
+                style={styles.cancelIcoWrap}
+                onPress={() => removeHistoryProp(history)}>
+                <Image
+                  style={styles.cancelIco}
+                  source={require('../assets/icons/ico_cancel.png')}
+                />
+              </TouchableOpacity>
+            )}
           </View>
           <View style={styles.hr} />
-        </>
+        </View>
       ))}
     </View>
   );
@@ -75,6 +96,32 @@ const styles = StyleSheet.create({
     width: '90%',
     opacity: 0.2,
     backgroundColor: '#909090',
+  },
+  toggleWrap: {
+    flexDirection: 'row',
+    marginLeft: 'auto',
+    marginRight: 15,
+    marginBottom: 10,
+  },
+  controlIco: {
+    width: 15,
+    height: 15,
+  },
+  toggleWrapText: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginLeft: 6,
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#8F8F8F',
+  },
+  cancelIcoWrap: {
+    marginLeft: 20,
+    justifyContent: 'center',
+  },
+  cancelIco: {
+    width: 20,
+    height: 20,
   },
 });
 

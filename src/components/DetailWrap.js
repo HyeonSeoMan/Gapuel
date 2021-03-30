@@ -3,8 +3,9 @@ import {StyleSheet, Text, View, TouchableOpacity, Alert, Image} from 'react-nati
 import HistoryList from './HistoryList';
 import AddHistory from './AddHistory';
 
-const DetailWrap = ({Debt, navigation, remove, addHistory}) => {
+const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
   const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const removeDebt = () => {
     Alert.alert('채무 내역 전체가 삭제됩니다', '정말 삭제하시겠습니까?', [
       {
@@ -31,6 +32,14 @@ const DetailWrap = ({Debt, navigation, remove, addHistory}) => {
   };
   const numComma = (num) =>
     num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const removeHistoryProp = (e) => {
+    const payload = {
+      phone: Debt.phone,
+      amount: e.amount,
+      createAt: e.createAt,
+    };
+    removeHistory(payload);
+  };
   return (
     <View>
       {Debt && (
@@ -39,8 +48,8 @@ const DetailWrap = ({Debt, navigation, remove, addHistory}) => {
             <View style={styles.headerLeft}>
               <Text style={styles.typeText}>
                 {navigation.getParam('moneyParam') === 'Send'
-                  ? '보내야 하는 돈'
-                  : '받아야 하는 돈'}
+                  ? '받아야 하는 돈'
+                  : '보내야 하는 돈'}
               </Text>
               <Text style={styles.totalText}>₩ {numComma(Debt.total)}</Text>
             </View>
@@ -84,7 +93,7 @@ const DetailWrap = ({Debt, navigation, remove, addHistory}) => {
             <View style={styles.verticalHr} />
             <TouchableOpacity
               style={styles.controlBox}
-              onPress={() => console.log('편집하기')}>
+              onPress={() => setIsEdit(!isEdit)}>
               <Image
                 style={styles.controlIco}
                 source={require('../assets/icons/ico_setting.png')}
@@ -108,7 +117,12 @@ const DetailWrap = ({Debt, navigation, remove, addHistory}) => {
               />
             </View>
           )}
-          <HistoryList Histories={Debt.history} />
+          <HistoryList
+            Histories={Debt.history}
+            isEdit={isEdit}
+            toggleEdit={() => setIsEdit(!isEdit)}
+            removeHistoryProp={(e) => removeHistoryProp(e)}
+          />
         </>
       )}
     </View>
