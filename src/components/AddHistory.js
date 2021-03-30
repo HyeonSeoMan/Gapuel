@@ -10,6 +10,7 @@ const AddHistory = ({addHistoryProp}) => {
   const [amount, setAmount] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [isDate, setIsDate] = useState(true);
+  const [isAdd, setIsAdd] = useState(true);
   const handleInputChange = (text) => {
     if (/^\d+$/.test(text)) {
       setAmount(text);
@@ -54,8 +55,8 @@ const AddHistory = ({addHistoryProp}) => {
     } else {
       const payload = {
         title: title,
-        date: `${dateFormat()}, ${timeFormat()}`,
-        amount: Number(amount),
+        date: `${dateFormat()}T${timeFormat()}`,
+        amount: isAdd ? Number(amount) : Number(amount) * -1,
       };
       addHistoryProp(payload);
     }
@@ -71,7 +72,7 @@ const AddHistory = ({addHistoryProp}) => {
             onChangeText={(text) => setTitle(text)}
           />
         </View>
-        <View style={[styles.inputBox, {height: 40}]}>
+        <View style={[styles.inputBox, {height: 50}]}>
           <TouchableOpacity
             style={styles.dateTextWrap}
             onPress={() => {
@@ -103,14 +104,32 @@ const AddHistory = ({addHistoryProp}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.inputBox}>
-          <TextInput
-            numeric
-            style={styles.inputStyle}
-            keyboardType={'numeric'}
-            placeholder={'Amount'}
-            onChangeText={(text) => handleInputChange(text)}
-          />
+        <View style={styles.amountWrap}>
+          <TouchableOpacity
+            onPress={() => setIsAdd(true)}
+            style={[
+              styles.addButton,
+              isAdd ? {backgroundColor: '#B3CA62'} : {backgroundColor: 'gray'},
+            ]}>
+            <Text style={styles.addButtonText}>+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setIsAdd(false)}
+            style={[
+              styles.addButton,
+              !isAdd ? {backgroundColor: '#C44E43'} : {backgroundColor: 'gray'},
+            ]}>
+            <Text style={styles.addButtonText}>-</Text>
+          </TouchableOpacity>
+          <View style={styles.amountBox}>
+            <TextInput
+              numeric
+              style={styles.inputStyle}
+              keyboardType={'numeric'}
+              placeholder={isAdd ? 'Amount' : '- Amount'}
+              onChangeText={(text) => handleInputChange(text)}
+            />
+          </View>
         </View>
         <TouchableOpacity style={styles.submitButton} onPress={() => submit()}>
           <Text style={styles.submitText}>작성하기</Text>
@@ -130,7 +149,9 @@ const AddHistory = ({addHistoryProp}) => {
                 style={styles.icoDate}
                 source={require('../assets/icons/ico_date.png')}
               />
-              <Text style={[styles.dateText, isDate && {color: 'black'}]}>날짜 선택</Text>
+              <Text style={[styles.dateText, isDate && {color: 'black'}]}>
+                날짜 선택
+              </Text>
             </TouchableOpacity>
             <View style={styles.verticalHr} />
             <TouchableOpacity
@@ -140,7 +161,9 @@ const AddHistory = ({addHistoryProp}) => {
                 style={styles.icoDate}
                 source={require('../assets/icons/ico_time.png')}
               />
-              <Text style={[styles.dateText, !isDate && {color: 'black'}]}>시간 선택</Text>
+              <Text style={[styles.dateText, !isDate && {color: 'black'}]}>
+                시간 선택
+              </Text>
             </TouchableOpacity>
           </View>
           {isDate && (
@@ -189,6 +212,36 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 15,
     fontWeight: '500',
+  },
+  amountWrap: {
+    flexDirection: 'row',
+  },
+  addButton: {
+    justifyContent: 'center',
+    borderRadius: 4,
+    width: 30,
+    marginRight: 8,
+    shadowColor: 'rgb(50, 50, 50)',
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    shadowOffset: {
+      height: -1,
+      width: 0,
+    },
+  },
+  addButtonText: {
+    fontSize: 21,
+    fontWeight: '600',
+    color: 'white',
+    textAlign: 'center',
+  },
+  amountBox: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: 2,
+    borderColor: '#BDBEC080',
+    borderRadius: 4,
+    padding: 3,
   },
   dateTextWrap: {
     flexDirection: 'row',
