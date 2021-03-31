@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, ScrollView, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, Button, ScrollView, StyleSheet} from 'react-native';
 import DebtList from '../containers/DebtList';
 import HomeHeader from '../containers/HomeHeader';
+import LocalNotification from '../Util/LocalNotification';
 
 const Home = (props) => {
   return (
@@ -22,6 +23,10 @@ const Home = (props) => {
         </View>
         <DebtList navigation={props.navigation} />
       </View>
+      <Button title={'register'} onPress={() => LocalNotification.register()}></Button>
+      <Button title={'cancelAll'} onPress={() => LocalNotification.cancelAll()}></Button>
+      <Button title={'removeBadge'} onPress={() => LocalNotification.removeBadge()}></Button>
+      <Button title={'getAllNoti'} onPress={() => LocalNotification.getAllNoti()}></Button>
     </ScrollView>
   );
 };
