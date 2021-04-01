@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Alert, Image} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert, Image, Button} from 'react-native';
 import HistoryList from './HistoryList';
 import AddHistory from './AddHistory';
+import AddNoti from './AddNoti';
+import LocalNotification from '../Util/LocalNotification';
 
 const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
-  const [isAddOpen, setIsAddOpen] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+  const [isControll, setIsControll] = useState(null);
   const removeDebt = () => {
     Alert.alert('상세 페이지 전체가 삭제됩니다', '정말 삭제하시겠습니까?', [
       {
@@ -22,13 +23,18 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
       },
     ]);
   };
+  
   const addHistoryProp = (e) => {
     const payload = {
       ...e,
       phone: Debt.phone,
     };
     addHistory(payload);
-    setIsAddOpen(!isAddOpen);
+    changeControll(isControll);
+  };
+  const addNotiProp = (e) => {
+    console.log(e);
+    // LocalNotification.register(e, `${Debt.title}님에게 ${navigation.getParam('mneyParam') === 'Send' ? '받아야 하는 돈' : '보내야 하는 돈'}`)
   };
   const numComma = (num) =>
     num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -39,6 +45,10 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
       createAt: e.createAt,
     };
     removeHistory(payload);
+  };
+  const changeControll = (e) => {
+    if (e === isControll) setIsControll(null);
+    else setIsControll(e);
   };
   return (
     <View>
@@ -63,7 +73,7 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
           <View style={styles.controlWrap}>
             <TouchableOpacity
               style={styles.controlBox}
-              onPress={() => setIsAddOpen(!isAddOpen)}>
+              onPress={() => changeControll('add')}>
               <Image
                 style={styles.controlIco}
                 source={require('../assets/icons/ico_write.png')}
@@ -73,7 +83,7 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
             <View style={styles.verticalHr} />
             <TouchableOpacity
               style={styles.controlBox}
-              onPress={() => console.log('알림 설정하기')}>
+              onPress={() => changeControll('noti')}>
               <Image
                 style={styles.controlIco}
                 source={require('../assets/icons/ico_notice.png')}
@@ -93,7 +103,7 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
             <View style={styles.verticalHr} />
             <TouchableOpacity
               style={styles.controlBox}
-              onPress={() => setIsEdit(!isEdit)}>
+              onPress={() => changeControll('edit')}>
               <Image
                 style={styles.controlIco}
                 source={require('../assets/icons/ico_setting.png')}
@@ -101,11 +111,11 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
               <Text style={styles.controlText}>편집하기</Text>
             </TouchableOpacity>
           </View>
-          {isAddOpen && (
+          {isControll === 'add' && (
             <View style={styles.AddHistoryWrap}>
               <TouchableOpacity
                 style={styles.cancelWrap}
-                onPress={() => setIsAddOpen(!isAddOpen)}>
+                onPress={() => changeControll(isControll)}>
                 <Image
                   style={styles.cancelIco}
                   source={require('../assets/icons/ico_cancel.png')}
@@ -117,11 +127,17 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
               />
             </View>
           )}
+          {isControll === 'noti' && (
+            <View style={styles.AddHistoryWrap}>
+              <Text>noti</Text>
+              <AddNoti addNotiProp={(payload) => addNotiProp(payload)} />
+            </View>
+          )}
           {Debt.history.length > 0 && (
             <HistoryList
               Histories={Debt.history}
-              isEdit={isEdit}
-              toggleEdit={() => setIsEdit(!isEdit)}
+              isControll={isControll}
+              toggleEdit={() => changeControll(isControll)}
               removeHistoryProp={(e) => removeHistoryProp(e)}
             />
           )}
@@ -136,7 +152,7 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
                 <Text style={styles.noDataTextSub}>작성하기 버튼을 통해 새로운 내역을 작성해 주세요.</Text>
                 <TouchableOpacity
                   style={styles.noDataButton}
-                  onPress={() => setIsAddOpen(!isAddOpen)}>
+                  onPress={() => changeControll('add')}>
                   <Text style={styles.noDataButtonText}>작성하기</Text>
                 </TouchableOpacity>
               </View>

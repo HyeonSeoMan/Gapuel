@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 
-const HistoryList = ({Histories, isEdit, removeHistoryProp, toggleEdit}) => {
+const HistoryList = ({Histories, isControll, removeHistoryProp, toggleEdit}) => {
   return (
     <View style={styles.container}>
-      {isEdit && (
+      {isControll === 'edit' && (
         <TouchableOpacity
           style={styles.toggleWrap}
           onPress={() => toggleEdit()}>
@@ -25,7 +25,7 @@ const HistoryList = ({Histories, isEdit, removeHistoryProp, toggleEdit}) => {
               <Text style={styles.amountText}>{history.amount}</Text>
               <Text style={styles.dateText}>{history.date}</Text>
             </View>
-            {isEdit && (
+            {isControll === 'edit' && (
               <TouchableOpacity
                 style={styles.cancelIcoWrap}
                 onPress={() => removeHistoryProp(history)}>

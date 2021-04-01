@@ -23,10 +23,10 @@ const Home = (props) => {
         </View>
         <DebtList navigation={props.navigation} />
       </View>
-      <Button title={'register'} onPress={() => LocalNotification.register()}></Button>
+      {/* <Button title={'register'} onPress={() => LocalNotification.register()}></Button>
       <Button title={'cancelAll'} onPress={() => LocalNotification.cancelAll()}></Button>
       <Button title={'removeBadge'} onPress={() => LocalNotification.removeBadge()}></Button>
-      <Button title={'getAllNoti'} onPress={() => LocalNotification.getAllNoti()}></Button>
+      <Button title={'getAllNoti'} onPress={() => LocalNotification.getAllNoti()}></Button> */}
     </ScrollView>
   );
 };
