@@ -33,8 +33,13 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
     changeControll(isControll);
   };
   const addNotiProp = (e) => {
-    console.log(e);
-    // LocalNotification.register(e, `${Debt.title}님에게 ${navigation.getParam('mneyParam') === 'Send' ? '받아야 하는 돈' : '보내야 하는 돈'}`)
+    const now = new Date();
+    const eDate = new Date(e);
+    if (now < eDate) {
+      LocalNotification.register(eDate, `${Debt.title}님에게 ${navigation.getParam('moneyParam') === 'Send' ? '받아야 하는 돈' : '보내야 하는 돈'}`);
+    } else {
+      alert('현재 시간보다 지난 시간을 선택해 주세요.');
+    }
   };
   const numComma = (num) =>
     num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -129,7 +134,15 @@ const DetailWrap = ({Debt, navigation, remove, addHistory, removeHistory}) => {
           )}
           {isControll === 'noti' && (
             <View style={styles.AddHistoryWrap}>
-              <Text>noti</Text>
+              <TouchableOpacity
+                style={styles.cancelWrap}
+                onPress={() => changeControll(isControll)}>
+                <Image
+                  style={styles.cancelIco}
+                  source={require('../assets/icons/ico_cancel.png')}
+                />
+                <Text style={styles.cancelText}>닫기</Text>
+              </TouchableOpacity>
               <AddNoti addNotiProp={(payload) => addNotiProp(payload)} />
             </View>
           )}

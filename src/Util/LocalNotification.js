@@ -1,25 +1,31 @@
 import {PushNotificationIOS} from 'react-native';
 import PushNotification from 'react-native-push-notification';
 
-PushNotification.configure({
-  onNotification: function (notification) {
-    console.log('NOTIFICATION:', notification);
-    notification.finish(PushNotificationIOS.FetchResult.NoData);
-  },
-  onAction: function (notification) {
-    console.log('ACTION:', notification.action);
-    console.log('NOTIFICATION:', notification);
-  },
-  permissions: {
-    alert: true,
-    badge: true,
-    sound: true,
-  },
-  popInitialNotification: true,
-  requestPermissions: true,
-});
-
-const _registerLocalNotification = (sec, title) => {
+const _registerLocalNotification = (date, title) => {
+  PushNotification.configure({
+    onRegister: function (token) {
+      console.log('TOKEN:', token);
+    },
+    onNotification: function (notification) {
+      console.log('NOTIFICATION:', notification);
+      PushNotification.setApplicationIconBadgeNumber(0);
+      notification.finish(PushNotificationIOS.FetchResult.NoData);
+    },
+    onAction: function (notification) {
+      console.log('ACTION:', notification.action);
+      console.log('NOTIFICATION:', notification);
+    },
+    onRegistrationError: function (err) {
+      console.error(err.message, err);
+    },
+    permissions: {
+      alert: true,
+      badge: true,
+      sound: true,
+    },
+    popInitialNotification: true,
+    requestPermissions: true,
+  });
   PushNotification.localNotificationSchedule({
     /* Android Only Properties */
     vibrate: true,
@@ -33,15 +39,13 @@ const _registerLocalNotification = (sec, title) => {
     /* iOS and Android properties */
     title,
     playSound: false,
-    number: 1,
-    actions: '["OK"]',
-    date: new Date(Date.now() + sec * 1000),
+    date: date,
     allowWhileIdle: true,
   });
 };
 
 export default {
-  register: (sec, title) => _registerLocalNotification(sec, title),
+  register: (date, title) => _registerLocalNotification(date, title),
   cancelAll: () => PushNotification.cancelAllLocalNotifications(),
   removeBadge: () => PushNotification.setApplicationIconBadgeNumber(0),
   getAllNoti: () => {
